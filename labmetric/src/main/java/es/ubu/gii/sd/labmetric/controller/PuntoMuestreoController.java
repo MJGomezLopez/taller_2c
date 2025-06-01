@@ -7,6 +7,7 @@ import es.ubu.gii.sd.labmetric.repository.PuntoMuestreoRepository;
 /**
  * Clase controlador para el modelo de punto de muestreos
  */
+@RestController
 public class PuntoMuestreoController {
 	
 	@Autowired
