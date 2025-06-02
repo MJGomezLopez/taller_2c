@@ -1,5 +1,7 @@
 package es.ubu.gii.sd.labmetric.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 /**
@@ -22,6 +24,9 @@ public class TecnicoCampo {
 	
 	@Column
 	private String telefono;
+	
+	@OneToMany(mappedBy = "tecnico", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ListaControl> listaControles;
 
 	//Constructor
 	//--con parametros
@@ -55,4 +60,11 @@ public class TecnicoCampo {
 	public Long getId() {
 		return id;
 	}
+	public List<ListaControl> getListaControles() {
+		return listaControles;
+	}
+	public void setListaControles(List<ListaControl> listaControles) {
+		this.listaControles = listaControles;
+	}
+	
 }

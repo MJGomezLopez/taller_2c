@@ -1,5 +1,7 @@
 package es.ubu.gii.sd.labmetric.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 /**
@@ -22,6 +24,9 @@ public class Analista {
 	
 	@Column
 	private String telefono;
+	
+	@OneToMany(mappedBy = "analista", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Muestra> muestras;
 
 	//Constructor
 	//--con parametros
@@ -54,5 +59,11 @@ public class Analista {
 	}
 	public Long getId() {
 		return id;
+	}
+	public List<Muestra> getMuestras() {
+		return muestras;
+	}
+	public void setMuestras(List<Muestra> muestras) {
+		this.muestras = muestras;
 	}
 }

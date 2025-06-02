@@ -1,5 +1,7 @@
 package es.ubu.gii.sd.labmetric.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 /**
@@ -16,6 +18,12 @@ public class Ruta {
 	
 	@Column(nullable=false)
 	private String nombre;
+	
+	@OneToMany(mappedBy = "ruta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PuntoMuestreo> puntosMuestreo;
+	
+	@OneToMany(mappedBy = "ruta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ListaControl> listaControles;
 	
 	//Constructor
 	
@@ -37,4 +45,17 @@ public class Ruta {
 	public Long getId() {
 		return id;
 	}
+	public List<PuntoMuestreo> getPuntosMuestreo() {
+		return puntosMuestreo;
+	}
+	public void setPuntosMuestreo(List<PuntoMuestreo> puntosMuestreo) {
+		this.puntosMuestreo = puntosMuestreo;
+	}
+	public List<ListaControl> getListaControles() {
+		return listaControles;
+	}
+	public void setListaControles(List<ListaControl> listaControles) {
+		this.listaControles = listaControles;
+	}
+	
 }

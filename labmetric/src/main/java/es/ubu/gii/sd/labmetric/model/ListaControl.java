@@ -19,10 +19,26 @@ public class ListaControl {
 	@Column(nullable=false)
 	private Date fecha;
 	
+	//FK tablas
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ruta_id", nullable = false)
+	private Ruta ruta;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "punto_id", nullable = false)
+	private PuntoMuestreo punto;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "tecnico_id", nullable = false)
+	private TecnicoCampo tecnico;
+	
 	//Constructor
 	//--con parametros
-	public ListaControl(Date fecha) {
+	public ListaControl(Date fecha, Ruta ruta, PuntoMuestreo punto,TecnicoCampo tecnico) {
 		this.fecha = fecha;
+		this.ruta = ruta;
+		this.punto = punto;
+		this.tecnico = tecnico;
 	}
 	//--sin parametros
 	public ListaControl() {}
@@ -31,12 +47,28 @@ public class ListaControl {
 	public Date getFecha() {
 		return fecha;
 	}
-
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
 	public Long getId() {
 		return id;
+	}
+	public Ruta getRuta() {
+		return ruta;
+	}
+	public void setRuta(Ruta ruta) {
+		this.ruta = ruta;
+	}
+	public PuntoMuestreo getPunto() {
+		return punto;
+	}
+	public void setPunto(PuntoMuestreo punto) {
+		this.punto = punto;
+	}
+	public TecnicoCampo getTecnico() {
+		return tecnico;
+	}
+	public void setTecnico(TecnicoCampo tecnico) {
+		this.tecnico = tecnico;
 	}
 }

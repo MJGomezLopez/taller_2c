@@ -55,10 +55,19 @@ public class Muestra {
 	
 	@Column
     private Double cot;		//Carbono organico total
+	
+	//FK Tabla
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "control_id", nullable = false, unique = true)
+    private ListaControl control;
+    
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "analista_id", nullable = false)
+	private Analista analista;
     
     //Constructor
     //--con parametros
-	public Muestra(Double ph, Double dbo, Double dqo, Double st, Double ce, Double no3, Double nh4, Double po4, Double alca, Double cl, Double fe, Double so4, Double od, Double cot) {
+	public Muestra(Double ph, Double dbo, Double dqo, Double st, Double ce, Double no3, Double nh4, Double po4, Double alca, Double cl, Double fe, Double so4, Double od, Double cot, ListaControl control, Analista analista) {
 		this.ph = ph;
 		this.dbo = dbo;
 		this.dqo = dqo;
@@ -73,6 +82,8 @@ public class Muestra {
 		this.so4 = so4;
 		this.od = od;
 		this.cot = cot;
+		this.control = control;
+		this.analista = analista;
 	}
 	//--sin parametros
 	public Muestra() {
@@ -196,7 +207,20 @@ public class Muestra {
 		return id;
 	}
 	
+	public ListaControl getControl() {
+		return control;
+	}
 	
-    
-    
+	public void setControl(ListaControl control) {
+		this.control = control;
+	}
+	
+	public Analista getAnalista() {
+		return analista;
+	}
+	
+	public void setAnalista(Analista analista) {
+		this.analista = analista;
+	}
+	
 }
