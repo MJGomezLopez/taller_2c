@@ -8,4 +8,6 @@ import es.ubu.gii.sd.labmetric.model.Usuario;
  */
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
+	Usuario findByNombreUsuarioAndClave(String nombreUsuario, String clave);
+
 }
