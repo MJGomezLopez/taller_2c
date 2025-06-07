@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Técnicos</title>
+    <title>Gestión de Analistas</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}" />
     <style>
         .main-container {
@@ -133,9 +133,9 @@
             <a th:href="@{/}" class="btn">Cerrar sesión</a>
         </div>
 
-        <h1 style="color: #1976d2;">Gestión de Técnicos de Campo</h1>
-        <a th:href="@{/tecnicos/nuevo}" class="btn btn-agregar">Agregar Técnico</a>
-		<br>
+        <h1 style="color: #1976d2;">Gestión de Analistas de Laboratorio</h1>
+        <a th:href="@{/analistas/nuevo}" class="btn btn-agregar">Agregar Analista</a>
+        <br>
 
         <table>
             <thead>
@@ -147,13 +147,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="tecnico : ${tecnicos}">
-                    <td th:text="${tecnico.nombre}"></td>
-                    <td th:text="${tecnico.apellido}"></td>
-                    <td th:text="${tecnico.telefono}"></td>
+                <tr th:each="analista : ${analistas}">
+                    <td th:text="${analista.nombre}"></td>
+                    <td th:text="${analista.apellido}"></td>
+                    <td th:text="${analista.telefono}"></td>
                     <td>
-                        <a th:href="@{'/tecnicos/editar/' + ${tecnico.id}}" class="btn btn-action">Editar</a>
-                        <a th:href="@{'/tecnicos/eliminar/' + ${tecnico.id}}" class="btn btn-action" style="background-color: red;">Eliminar</a>
+                        <a th:href="@{'/analistas/editar/' + ${analista.id}}" class="btn btn-action">Editar</a>
+                        <a th:href="@{'/analistas/eliminar/' + ${analista.id}}" class="btn btn-action" style="background-color: red;">Eliminar</a>
                     </td>
                 </tr>
             </tbody>
