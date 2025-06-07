@@ -44,7 +44,7 @@ public class UsuarioController {
         Usuario usuario = usuRepo.findByNombreUsuarioAndClave(nombreUsuario, clave);
 
         if (usuario != null) {
-            return "redirect:/principal.html";
+            return "redirect:/principal";
         } else {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
             return "login";
