@@ -61,7 +61,7 @@ public class Muestra {
     @JoinColumn(name = "control_id", nullable = false, unique = true)
     private ListaControl control;
     
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "analista_id", nullable = false)
 	private Analista analista;
     
