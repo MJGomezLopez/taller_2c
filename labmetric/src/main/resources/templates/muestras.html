@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Muestras</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .main-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #dbe9f6;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+            overflow-x: auto; /* Scroll horizontal si es necesario */
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            font-size: 14px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #155a9c;
+        }
+
+        .btn-agregar {
+            background-color: #28a745;
+            float: right;
+        }
+
+        .btn-agregar:hover {
+            background-color: #218838;
+        }
+
+        .table-container {
+            overflow-x: auto; /* Scroll horizontal para tabla */
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px; /* Previene que la tabla se comprima */
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1976d2;
+            color: white;
+            font-size: 13px;
+        }
+
+        .btn-action {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a th:href="@{/tecnicos}">Técnicos</a></li>
+            <li><a th:href="@{/analistas}">Analistas</a></li>
+            <li><a th:href="@{/muestras}">Muestras</a></li>
+            <li><a th:href="@{/rutas}">Rutas</a></li>
+            <li><a th:href="@{/puntosDeMuestreo}">Puntos de Muestreo</a></li>
+            <li><a th:href="@{/listaControl}">Lista de Control</a></li>
+        </ul>
+    </div>
+
+    <!-- Área de contenido -->
+    <div class="content-area">
+        <div class="logout-button">
+            <a th:href="@{/}" class="btn">Cerrar sesión</a>
+        </div>
+
+        <h1 style="color: #1976d2;">Informe de Muestras de Laboratorio</h1>
+        <br>
+
+        <div class="table-container">
+            <table>
+				<thead>
+				    <tr>
+				        <th style="display: none;">ID</th>
+				        <th>Ruta</th>
+				        <th>Punto de Muestreo</th>
+				        <th>Fecha</th>
+				        <th>Analista</th>
+				        <th>Alcalinidad (mg/L CaCO₃)</th>
+				        <th>Conductividad Eléctrica (µS/cm)</th>
+				        <th>Cloruros (Cl⁻) (mg/L)</th>
+				        <th>Carbono Orgánico Total (COT) (mg/L)</th>
+				        <th>DBO (Demanda Bioquímica de O₂) (mg/L)</th>
+				        <th>DQO (Demanda Química O₂) (mg/L)</th>
+				        <th>Hierro (Fe) (mg/L)</th>
+				        <th>Amonio (NH₄⁺) (mg/L)</th>
+				        <th>Nitratos (NO₃⁻) (mg/L)</th>
+				        <th>Oxígeno disuelto (OD) (mg/L)</th>
+				        <th>Fosfatos (PO₄³⁻) (mg/L)</th>
+				        <th>pH</th>
+				        <th>Sulfatos (SO₄²⁻) (mg/L)</th>
+				        <th>Sólidos Totales (ST) (mg/L)</th>
+				        <th>Acciones</th>
+				    </tr>
+				</thead>
+				<tbody>
+				    <tr th:each="muestra : ${muestras}">
+				        <td style="display: none;" th:text="${muestra.id}"></td>
+				        <td th:text="${muestra.ruta}"></td>
+				        <td th:text="${muestra.puntoMuestreo}"></td>
+				        <td th:text="${muestra.fecha}"></td>
+				        <td th:text="${muestra.analista}"></td>
+				        <td th:text="${muestra.alca}"></td>
+				        <td th:text="${muestra.ce}"></td>
+				        <td th:text="${muestra.cl}"></td>
+				        <td th:text="${muestra.cot}"></td>
+				        <td th:text="${muestra.dbo}"></td>
+				        <td th:text="${muestra.dqo}"></td>
+				        <td th:text="${muestra.fe}"></td>
+				        <td th:text="${muestra.nh4}"></td>
+				        <td th:text="${muestra.no3}"></td>
+				        <td th:text="${muestra.od}"></td>
+				        <td th:text="${muestra.po4}"></td>
+				        <td th:text="${muestra.ph}"></td>
+				        <td th:text="${muestra.so4}"></td>
+				        <td th:text="${muestra.st}"></td>
+				        <td>
+				            <a th:href="@{'/muestras/editar/' + ${muestra.id}}" class="btn btn-action">Editar</a>
+				            <a th:href="@{'/muestras/resultados/' + ${muestra.id}}" class="btn btn-action">Mostrar Resultados</a>
+				        </td>
+				    </tr>
+				</tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
