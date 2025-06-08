@@ -60,6 +60,11 @@ public class TecnicoCampo {
 	public Long getId() {
 		return id;
 	}
+	
+    public void setId(Long id) {
+        this.id = id;
+    }
+	
 	public List<ListaControl> getListaControles() {
 		return listaControles;
 	}

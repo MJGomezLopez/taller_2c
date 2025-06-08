@@ -16,11 +16,11 @@ import es.ubu.gii.sd.labmetric.repository.TecnicoCampoRepository;
 public class TecnicoCampoController {
 
 	@Autowired
-	private TecnicoCampoRepository rutaRepo;
+	private TecnicoCampoRepository tcRepo;
 	
 	@GetMapping("/tecnicos")
 	public String listarTecnicos(Model model) {
-	    List<TecnicoCampo> tecnicos = rutaRepo.findAll();
+	    List<TecnicoCampo> tecnicos = tcRepo.findAll();
 	    model.addAttribute("tecnicos", tecnicos);
 	    return "tecnicos";
 	}
@@ -33,15 +33,29 @@ public class TecnicoCampoController {
 
 	@PostMapping("/tecnicos/guardar")
 	public String guardarTecnico(@ModelAttribute TecnicoCampo tecnico) {
-	    rutaRepo.save(tecnico);
+	    tcRepo.save(tecnico);
 	    return "redirect:/tecnicos";
 	}
 	
 	@GetMapping("/tecnicos/eliminar/{id}")
 	public String eliminarTecnico(@PathVariable Long id) {
-	    rutaRepo.deleteById(id);
+	    tcRepo.deleteById(id);
 	    return "redirect:/tecnicos";
 	}
+	
+    @GetMapping("/tecnicos/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+        TecnicoCampo tecnico = tcRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+        model.addAttribute("tecnico", tecnico);
+        return "editar_tecnico";
+    }
 
+    @PostMapping("/tecnicos/editar")
+    public String actualizarTecnico(@ModelAttribute TecnicoCampo tecnico) {
+        System.out.println("ID recibido: " + tecnico.getId());
+        tcRepo.save(tecnico);
+        return "redirect:/tecnicos";
+    }
 
 }
