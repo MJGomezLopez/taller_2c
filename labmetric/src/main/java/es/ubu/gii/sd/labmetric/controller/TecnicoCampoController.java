@@ -24,5 +24,24 @@ public class TecnicoCampoController {
 	    model.addAttribute("tecnicos", tecnicos);
 	    return "tecnicos";
 	}
+	
+	@GetMapping("/tecnicos/nuevo")
+	public String mostrarFormularioNuevoTecnico(Model model) {
+	    model.addAttribute("tecnico", new TecnicoCampo());
+	    return "nuevo_tecnico";
+	}
+
+	@PostMapping("/tecnicos/guardar")
+	public String guardarTecnico(@ModelAttribute TecnicoCampo tecnico) {
+	    rutaRepo.save(tecnico);
+	    return "redirect:/tecnicos";
+	}
+	
+	@GetMapping("/tecnicos/eliminar/{id}")
+	public String eliminarTecnico(@PathVariable Long id) {
+	    rutaRepo.deleteById(id);
+	    return "redirect:/tecnicos";
+	}
+
 
 }
