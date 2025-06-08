@@ -1,9 +1,9 @@
 CREATE OR REPLACE VIEW vista_resultados AS
 SELECT
+    m.id AS id_muestra,
     CONCAT(a.nombre, ' ', a.apellido) AS analista,
     a.telefono,
     lc.fecha,
-    lc.id AS id_lista_control,
     pm.nombre AS punto_muestreo,
     r.nombre AS ruta,
     CONCAT(tc.nombre, ' ', tc.apellido) AS tecnico_campo,
