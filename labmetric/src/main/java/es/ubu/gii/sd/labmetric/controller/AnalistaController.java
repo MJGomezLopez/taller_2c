@@ -25,5 +25,38 @@ public class AnalistaController {
 	    model.addAttribute("analistas", analistas);
 	    return "analistas";
 	}
+	
+	
+	@GetMapping("/analistas/nuevo")
+	public String mostrarFormularioNuevoAnalista(Model model) {
+	    model.addAttribute("analista", new Analista());
+	    return "nuevo_analista";
+	}
+
+	@PostMapping("/analistas/guardar")
+	public String guardarAnalista(@ModelAttribute Analista analista) {
+	    analistaRepo.save(analista);
+	    return "redirect:/analistas";
+	}
+	
+	@GetMapping("/analistas/eliminar/{id}")
+	public String eliminarAnalista(@PathVariable Long id) {
+	    analistaRepo.deleteById(id);
+	    return "redirect:/analistas";
+	}
+	
+    @GetMapping("/analistas/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+        Analista analista = analistaRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+        model.addAttribute("analista", analista);
+        return "editar_analista";
+    }
+
+    @PostMapping("/analistas/editar")
+    public String actualizarAnalista(@ModelAttribute Analista analista) {
+        System.out.println("ID recibido: " + analista.getId());
+        analistaRepo.save(analista);
+        return "redirect:/analistas";
+    }
 
 }

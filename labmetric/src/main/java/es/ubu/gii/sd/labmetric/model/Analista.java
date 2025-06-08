@@ -66,4 +66,7 @@ public class Analista {
 	public void setMuestras(List<Muestra> muestras) {
 		this.muestras = muestras;
 	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 }
