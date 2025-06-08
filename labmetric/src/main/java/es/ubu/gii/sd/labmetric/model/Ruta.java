@@ -57,5 +57,7 @@ public class Ruta {
 	public void setListaControles(List<ListaControl> listaControles) {
 		this.listaControles = listaControles;
 	}
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

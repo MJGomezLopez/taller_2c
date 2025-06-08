@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Ruta</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        /* Copia exacta del estilo que sí funciona */
+        .main-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #dbe9f6;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #155a9c;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 50%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-guardar {
+            background-color: #28a745;
+        }
+
+        .btn-guardar:hover {
+            background-color: #218838;
+        }
+
+        .btn-volver {
+            background-color: gray;
+        }
+
+        .btn-volver:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a th:href="@{/tecnicos}">Técnicos</a></li>
+            <li><a th:href="@{/analistas}">Analistas</a></li>
+            <li><a th:href="@{/muestras}">Muestras</a></li>
+            <li><a th:href="@{/rutas}">Rutas</a></li>
+            <li><a th:href="@{/puntosDeMuestreo}">Puntos de Muestreo</a></li>
+            <li><a th:href="@{/listaControl}">Lista de Control</a></li>
+        </ul>
+    </div>
+
+    <!-- Área de contenido -->
+    <div class="content-area">
+        <div class="logout-button">
+            <a th:href="@{/}" class="btn">Cerrar sesión</a>
+        </div>
+
+        <h1 style="color: #1976d2;">Agregar Ruta</h1>
+        <br>
+
+		<form th:action="@{/rutas/nueva}" th:object="${ruta}" method="post" class="form-container">
+
+		    <div class="form-group">
+		        <label for="nombre">Nombre:</label>
+		        <input type="text" id="nombre" th:field="*{nombre}" required />
+		    </div>
+
+		    <div class="button-group">
+		        <button type="submit" class="btn btn-guardar">Guardar</button>
+		        <a th:href="@{/rutas}" class="btn btn-volver">Volver</a>
+		    </div>
+		</form>
+    </div>
+</div>
+
+</body>
+</html>
