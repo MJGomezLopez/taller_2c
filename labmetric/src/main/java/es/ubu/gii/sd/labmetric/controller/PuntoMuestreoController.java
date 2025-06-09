@@ -59,5 +59,14 @@ public class PuntoMuestreoController {
 	    pmRepo.save(punto);
 	    return "redirect:/puntosDeMuestreo";
 	}
+	
+	@GetMapping("/puntosDeMuestreo/eliminar/{id}")
+	public String eliminarPuntoMuestreo(@PathVariable Long id) {
+	    PuntoMuestreo punto = pmRepo.findById(id)
+	        .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+	    
+	    pmRepo.delete(punto);
+	    return "redirect:/puntosDeMuestreo";
+	}
 
 }
