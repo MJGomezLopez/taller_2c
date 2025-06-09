@@ -39,5 +39,25 @@ public class PuntoMuestreoController {
 	    pmRepo.save(puntoMuestreo);
 	    return "redirect:/puntosDeMuestreo";
 	}
+	
+	@GetMapping("/puntosDeMuestreo/editar/{id}")
+	public String mostrarFormularioEditarPunto(@PathVariable Long id, Model model) {
+	    PuntoMuestreo punto = pmRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+	    model.addAttribute("puntoMuestreo", punto);
+	    model.addAttribute("rutas", rutaRepo.findAll());
+	    return "puntos_muestreo_editar";
+	}
+
+	@PostMapping("/puntosDeMuestreo/editar/{id}")
+	public String actualizarPuntoMuestreo(@PathVariable Long id, @ModelAttribute PuntoMuestreo puntoActualizado) {
+	    PuntoMuestreo punto = pmRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+
+	    punto.setNombre(puntoActualizado.getNombre());
+	    punto.setDescripcion(puntoActualizado.getDescripcion());
+	    punto.setRuta(puntoActualizado.getRuta());
+
+	    pmRepo.save(punto);
+	    return "redirect:/puntosDeMuestreo";
+	}
 
 }
