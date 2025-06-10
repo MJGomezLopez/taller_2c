@@ -166,35 +166,38 @@
 				        <th>pH</th>
 				        <th>Sulfatos (SO₄²⁻) (mg/L)</th>
 				        <th>Sólidos Totales (ST) (mg/L)</th>
-				        <th>Acciones</th>
+				        <th>Editar</th>
+						<th>Resultados</th>
 				    </tr>
 				</thead>
 				<tbody>
-				    <tr th:each="muestra : ${muestras}">
-				        <td style="display: none;" th:text="${muestra.id}"></td>
-				        <td th:text="${muestra.ruta}"></td>
-				        <td th:text="${muestra.puntoMuestreo}"></td>
-				        <td th:text="${muestra.fecha}"></td>
-				        <td th:text="${muestra.analista}"></td>
-				        <td th:text="${muestra.alca}"></td>
-				        <td th:text="${muestra.ce}"></td>
-				        <td th:text="${muestra.cl}"></td>
-				        <td th:text="${muestra.cot}"></td>
-				        <td th:text="${muestra.dbo}"></td>
-				        <td th:text="${muestra.dqo}"></td>
-				        <td th:text="${muestra.fe}"></td>
-				        <td th:text="${muestra.nh4}"></td>
-				        <td th:text="${muestra.no3}"></td>
-				        <td th:text="${muestra.od}"></td>
-				        <td th:text="${muestra.po4}"></td>
-				        <td th:text="${muestra.ph}"></td>
-				        <td th:text="${muestra.so4}"></td>
-				        <td th:text="${muestra.st}"></td>
-				        <td>
-				            <a th:href="@{'/muestras/editar/' + ${muestra.id}}" class="btn btn-action">Editar</a>
-				            <a th:href="@{'/muestras/resultados/' + ${muestra.id}}" class="btn btn-action">Mostrar Resultados</a>
-				        </td>
-				    </tr>
+					<tr th:each="muestra : ${muestras}">
+					    <td style="display: none;" th:text="${muestra.id}"></td>
+					    <td th:text="${muestra.control.ruta.nombre}"></td>
+					    <td th:text="${muestra.control.punto.nombre}"></td>
+					    <td th:text="${#dates.format(muestra.control.fecha, 'dd/MM/yyyy')}"></td>
+					    <td th:text="${muestra.analista?.nombre}"></td>
+					    <td th:text="${muestra.alca}"></td>
+					    <td th:text="${muestra.ce}"></td>
+					    <td th:text="${muestra.cl}"></td>
+					    <td th:text="${muestra.cot}"></td>
+					    <td th:text="${muestra.dbo}"></td>
+					    <td th:text="${muestra.dqo}"></td>
+					    <td th:text="${muestra.fe}"></td>
+					    <td th:text="${muestra.nh4}"></td>
+					    <td th:text="${muestra.no3}"></td>
+					    <td th:text="${muestra.od}"></td>
+					    <td th:text="${muestra.po4}"></td>
+					    <td th:text="${muestra.ph}"></td>
+					    <td th:text="${muestra.so4}"></td>
+					    <td th:text="${muestra.st}"></td>
+					    <td>
+					        <a th:href="@{'/muestras/editar/' + ${muestra.id}}" class="btn btn-action">Editar</a>
+					    </td>
+						<td>
+							<a th:href="@{'/muestras/resultados/' + ${muestra.id}}" class="btn btn-action">Resultados</a>
+						</td>
+					</tr>
 				</tbody>
             </table>
         </div>
