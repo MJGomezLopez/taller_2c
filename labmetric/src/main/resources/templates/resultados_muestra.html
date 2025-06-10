@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Muestra</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        /* Reutilizamos el estilo base para mantener consistencia */
+        .main-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #dbe9f6;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            font-size: 14px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #155a9c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            clear: both;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1976d2;
+            color: white;
+        }
+		
+		.back-button {
+		    display: block;
+		    margin: 30px auto 0;
+		    text-align: center;
+		}
+		
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <ul>
+            <li><a th:href="@{/tecnicos}">Técnicos</a></li>
+            <li><a th:href="@{/analistas}">Analistas</a></li>
+            <li><a th:href="@{/muestras}">Muestras</a></li>
+            <li><a th:href="@{/rutas}">Rutas</a></li>
+            <li><a th:href="@{/puntosDeMuestreo}">Puntos de Muestreo</a></li>
+            <li><a th:href="@{/listaControl}">Lista de Control</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content-area">
+        <div class="logout-button">
+            <a th:href="@{/}" class="btn">Cerrar sesión</a>
+        </div>
+
+        <h1 style="color: #1976d2;">Resultados de la Muestra</h1>
+
+        <table>
+            <tbody>
+                <tr><th>Relación DBO/DQO</th><td th:text="${resultado.r_dbo_dqo}"></td></tr>
+                <tr><th>% Biodegradabilidad</th><td th:text="${resultado.prct_bio}"></td></tr>
+                <tr><th>Índice materia no biodegradable</th><td th:text="${resultado.imnb}"></td></tr>
+                <tr><th>Índice de mineralización</th><td th:text="${resultado.im}"></td></tr>
+                <tr><th>Concentración de H⁺</th><td th:text="${resultado.ch}"></td></tr>
+                <tr><th>Índice nitrógeno inorgánico</th><td th:text="${resultado.ini}"></td></tr>
+                <tr><th>Relación Fosfato/Nitrato</th><td th:text="${resultado.r_po4_no3}"></td></tr>
+                <tr><th>Dureza total</th><td th:text="${resultado.dt}"></td></tr>
+                <tr><th>Contenido hierro total</th><td th:text="${resultado.cht}"></td></tr>
+                <tr><th>Índice contaminación sulfatada</th><td th:text="${resultado.ics}"></td></tr>
+            </tbody>
+        </table>
+		
+		
+		<div class="back-button">
+		    <a th:href="@{/muestras}" class="btn">Volver a Muestras</a>
+		</div>
+    </div>
+</div>
+
+</body>
+</html>
