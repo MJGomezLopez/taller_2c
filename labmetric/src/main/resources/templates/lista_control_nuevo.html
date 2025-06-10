@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nuevo Registro de Lista de Control</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <style>
+        .main-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #dbe9f6;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #155a9c;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="main-container">
+	<div class="sidebar">
+	    <h2>Menú</h2>
+	    <ul>
+	        <li><a th:href="@{/tecnicos}">Técnicos</a></li>
+	        <li><a th:href="@{/analistas}">Analistas</a></li>
+	        <li><a th:href="@{/muestras}">Muestras</a></li>
+	        <li><a th:href="@{/rutas}">Rutas</a></li>
+	        <li><a th:href="@{/puntosDeMuestreo}">Puntos de Muestreo</a></li>
+	        <li><a th:href="@{/listaControl}">Lista de Control</a></li>
+	    </ul>
+	</div>
+
+    <div class="content-area">
+        <div class="form-container">
+            <h1>Nuevo Registro de Lista de Control</h1>
+            <form th:action="@{/listaControl/nuevo}" method="post" th:object="${registro}">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" th:field="*{fecha}" required>
+
+                <label for="tecnico">Técnico de campo:</label>
+                <select id="tecnico" name="tecnico.id" th:field="*{tecnico}" required>
+                    <option value="">-- Selecciona un técnico --</option>
+                    <option th:each="tecnico : ${tecnicos}" 
+                            th:value="${tecnico.id}" 
+                            th:text="${tecnico.nombre} + ' ' + ${tecnico.apellido}"></option>
+                </select>
+
+                <label for="ruta">Ruta:</label>
+                <select id="ruta" name="ruta.id" th:field="*{ruta}" required>
+                    <option value="">-- Selecciona una ruta --</option>
+                    <option th:each="ruta : ${rutas}" 
+                            th:value="${ruta.id}" 
+                            th:text="${ruta.nombre}"></option>
+                </select>
+
+                <label for="punto">Punto de muestreo:</label>
+                <select id="punto" name="punto.id" th:field="*{punto}" required>
+                    <option value="">-- Selecciona un punto --</option>
+                </select>
+
+                <button class="btn" type="submit">Guardar</button>
+                <a class="btn" th:href="@{/listaControl}">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+	    $('#ruta').change(function() {
+	        let rutaId = $(this).val();
+	        let $puntoSelect = $('#punto');
+	        $puntoSelect.empty(); // Limpiar las opciones actuales
+	        $puntoSelect.append('<option value="">-- Selecciona un punto --</option>');
+
+	        if (rutaId) {
+	            $.get('/api/puntosDeMuestreoPorRuta/' + rutaId)
+	                .done(function(puntos) {
+	                    if (puntos.length > 0) {
+	                        puntos.forEach(function(punto) {
+	                            $puntoSelect.append(
+	                                $('<option>', {
+	                                    value: punto.id,
+	                                    text: punto.nombre
+	                                })
+	                            );
+	                        });
+	                    } else {
+	                        $puntoSelect.append('<option value="">No hay puntos de muestreo disponibles</option>');
+	                    }
+	                })
+	                .fail(function(jqXHR, textStatus, errorThrown) {
+	                    $puntoSelect.append('<option value="">Error al cargar los puntos de muestreo: ' + errorThrown + '</option>');
+	                });
+	        }
+	    });
+	});
+</script>
+</body>
+</html>

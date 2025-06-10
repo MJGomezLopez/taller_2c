@@ -2,6 +2,8 @@ package es.ubu.gii.sd.labmetric.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 /**
@@ -17,6 +19,7 @@ public class ListaControl {
 	private Long id;
 	
 	@Column(nullable=false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 	
 	//FK tablas

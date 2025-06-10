@@ -2,6 +2,8 @@ package es.ubu.gii.sd.labmetric.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 /**
@@ -28,6 +30,7 @@ public class PuntoMuestreo {
 	//FK tablas
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "ruta_id", nullable = false)
+	@JsonIgnore
 	private Ruta ruta;
 	
 	//Constructores
