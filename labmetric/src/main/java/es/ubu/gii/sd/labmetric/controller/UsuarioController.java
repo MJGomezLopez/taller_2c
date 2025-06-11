@@ -35,7 +35,7 @@ public class UsuarioController {
     public String mostrarFormularioLogin() {
         return "login";
     }
-
+    /*
     // Procesar el login
     @PostMapping("/login")
     public String procesarLogin(@RequestParam String nombreUsuario,
@@ -50,5 +50,6 @@ public class UsuarioController {
             return "login";
         }
     }
+    */
 	
 }
