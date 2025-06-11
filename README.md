@@ -22,3 +22,7 @@ La aplicación permite almacenar, consultar y gestionar la información de las m
 - **MySQL**: Base de datos relacional para almacenar la **información**.
 - **Thymeleaf**: Motor de plantillas utilizado para la **parte frontend**.
 - **Maven**: Sistema de gestión de **dependencias** y construcción del proyecto.
+
+## 🛠️ Ejecutar el proyecto
+
+Para ello solo debes usar el siguiente comando: `java -jar labmetric/target/labmetric-0.0.1-SNAPSHOT.jar`
